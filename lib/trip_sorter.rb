@@ -15,6 +15,16 @@ module TripSorter
       @sorted_cards ||= sort_cards
     end
 
+    def to_s
+      desc = ''
+      journey.each do |c|
+        desc << c.to_s << "\n"
+      end
+      desc
+    end
+
+    private
+
     def sort_cards
       first = origin
       sorted_cards = []
