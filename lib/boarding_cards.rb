@@ -1,14 +1,22 @@
 module BoardingCards
 
   class LuggageDrop
+    attr_reader :counter
+
     def initialize(counter)
       @counter = counter
+    end
+
+    def to_s
+      "Luggage drop at ticket counter #{counter}"
     end
   end
 
   class LuggageTransfer
-    def to_s
+    DESC = 'Luggage will be automatically transferred from your last leg'
 
+    def to_s
+      DESC
     end
   end
 
@@ -57,16 +65,19 @@ module BoardingCards
   end
 
   class FlightCard < TransportCard
-    attr_reader :gate
+    attr_reader :gate, :luggage
 
     def initialize(origin:, destination:, id:, seat:, gate:, luggage: nil)
       super(origin, destination, id, seat)
       @seat = seat
       @gate = gate
+      @luggage = luggage
     end
 
     def to_s
-      "From #{origin} take flight #{id} to #{destination}. Gate #{gate}, #{seat_desc}"
+      out = "From #{origin} take flight #{id} to #{destination}. Gate #{gate}, #{seat_desc}."
+      out << ' ' << @luggage.to_s << '.' if @luggage
+      out
     end
   end
 
